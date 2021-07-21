@@ -6,44 +6,44 @@ const tablecols = require("../helpers/tableColumns.js");
 const fndb = require("../helpers/dbFunctions.js");
 const jwt = require("jsonwebtoken");
 
-router.post("/registerUser", registerUser);
+router.post("/registerVehicle", registerVehicle);
 router.post("/authenticate", authenticate);
-router.get("/getAllUser", getAllUser);
-router.get("/getByIdUser/:id", getByIdUser);
-router.put("/updateUser/:id", updateUser);
-router.delete("/deleteUser/:id", deleteUser);
+router.get("/getAllVehicle", getAllVehicle);
+router.get("/getByIdVehicle/:id", getByIdVehicle);
+router.put("/updateVehicle/:id", updateVehicle);
+router.delete("/deleteVehicle/:id", deleteVehicle);
 module.exports = router;
 
-async function registerUser(req, res) {
+async function registerVehicle(req, res) {
   var resp = new Object();
   try {
-    let newUser = req.body;
-    const cols = tablecols.getColumns(tables.Users);
-    var chkUser = await fndb.getItemByColumn(
-      tables.Users,
-      "username",
-      newUser.username
+    let newVehicle = req.body;
+    const cols = tablecols.getColumns(tables.Vehicles);
+    var chkVehicle = await fndb.getItemByColumn(
+      tables.Vehicles,
+      "veh_reg_num",
+      newVehicle.veh_reg_num
     );
-    if (chkUser && chkUser.length > 0) {
+    if (chkVehicle && chkVehicle.length > 0) {
       resp.result = null;
       resp.success = false;
-      resp.message = "Error: User Name not available";
+      resp.message = "Error: Vehicle already registered";
       return res.send(resp);
     }
-    var result = await fndb.addNewItem(tables.Users, newUser);
+    var result = await fndb.addNewItem(tables.Vehicles, newVehicle);
 
     if (result) {
       resp.result = result;
       resp.success = true;
-      resp.message = "Saved data";
+      resp.message = "Saved Record";
     } else {
       resp.result = null;
       resp.success = false;
       resp.message = "Error: Error in saving information";
-      console.log("registerUser", "Error in register user");
+      console.log("registerVehicle", "Error in register vehicle");
     }
   } catch (err) {
-    console.log("User Service - registerUser" + err);
+    console.log("Vehicle Service - registerVehicle" + err);
     resp.result = null;
     resp.success = false;
     resp.message = "Error: Error in saving information";
@@ -84,93 +84,93 @@ async function authenticate(req, res) {
   return res.send(resp);
 }
 
-async function getAllUser(req, res) {
+async function getAllVehicle(req, res) {
   var resp = new Object();
   try {
-    var result = await fndb.getAllItems(tables.Users);
+    var result = await fndb.getAllItems(tables.Vehicles);
     if (result) {
       resp.result = result;
       resp.success = true;
-      resp.message = "All data";
+      resp.message = "All Vehicles";
     } else {
       resp.result = null;
       resp.success = false;
-      resp.message = "Error: Error in getting information";
+      resp.message = "Error: Error in getting vehicle information";
     }
   } catch (err) {
-    console.log("User Service - getAllUser" + err);
+    console.log("Vehicle Service - getAllVehicle" + err);
     resp.result = null;
     resp.success = false;
-    resp.message = "Error: Error in getting information";
+    resp.message = "Error: Error in getting vehicle data";
   }
   return res.send(resp);
 }
 
-async function getByIdUser(req, res) {
+async function getByIdVehicle(req, res) {
   var resp = new Object();
   try {
-    var result = await fndb.getItemById(tables.Users, req.params.id);
+    var result = await fndb.getItemById(tables.Vehicles, req.params.id);
     if (result) {
       resp.result = result;
       resp.success = true;
-      resp.message = "All data";
+      resp.message = "All vehicle data";
     } else {
       resp.result = null;
       resp.success = false;
-      resp.message = "Error: Error in getting information";
+      resp.message = "Error: Error in getting vehicle information";
     }
   } catch (err) {
-    console.log("User Service - getByIdUser" + err);
+    console.log("Vehicle Service - getByIdVehicle" + err);
     resp.result = null;
     resp.success = false;
-    resp.message = "Error: Error in getting information";
+    resp.message = "Error: Error in getting vehicle information";
   }
   return res.send(resp);
 }
 
-async function updateUser(req, res) {
+async function updateVehicle(req, res) {
   var resp = new Object();
   try {
-    var result = await fndb.updateItem(tables.Users, req.params.id, req.body);
+    var result = await fndb.updateItem(tables.Vehicles, req.params.id, req.body);
 
     if (result) {
       resp.result = result;
       resp.success = true;
-      resp.message = "Updated data";
+      resp.message = "Updated Vehicle data";
     } else {
       resp.result = null;
       resp.success = false;
-      resp.message = "Error: Error in saving information";
-      console.log("updateUser", "Error in save user");
+      resp.message = "Error: Error in saving vehicle information";
+      console.log("updateVehicle", "Error in saving vehicle data");
     }
   } catch (err) {
-    console.log("User Service - updateUser" + err);
+    console.log("Vehicle Service - updateVehicle " + err);
     resp.result = null;
     resp.success = false;
-    resp.message = "Error: Error in update user - user service";
+    resp.message = "Error: Error in update vehicle - vehicle service";
   }
   return res.send(resp);
 }
 
-async function deleteUser(req, res) {
+async function deleteVehicle(req, res) {
   var resp = new Object();
   try {
-    var result = await fndb.deleteItem(tables.Users, req.params.id);
+    var result = await fndb.deleteItem(tables.Vehicles, req.params.id);
 
     if (result) {
       resp.result = result;
       resp.success = true;
-      resp.message = "Save data";
+      resp.message = "Save Vehicle Data";
     } else {
       resp.result = null;
       resp.success = false;
-      resp.message = "Error: Error in delete information";
+      resp.message = "Error: Error in delete vehicle ";
     }
   } catch (err) {
-    console.log("User Service - deleteUser" + err);
+    console.log("Vehicle Service - deleteVehicle " + err);
     resp.result = null;
     resp.success = false;
-    resp.message = "Error: Error in delete information";
+    resp.message = "Error: Error in delete vehicle";
   }
   return res.send(resp);
 }

@@ -8,8 +8,9 @@ app.use(cors());
 
 // api routes
 app.use("/users", require("./services/users.service"));
+app.use("/vehicles", require("./services/vehicles.service"));
 app.use("/", (req, res) => {
-  return res.send("Hello! from sample Node JS API");
+  return res.send("Hello! from carcheck backend Node JS API");
 });
 // start server
 const port = 3000;
