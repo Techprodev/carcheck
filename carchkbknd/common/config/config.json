@@ -1,0 +1,8 @@
+{
+  "dbHost": "localhost",
+  "dbUser": "carcheck_user",
+  "dbPassword": "carcheck@123",
+  "dataBaseName": "carcheck_db",
+  "conLimit": 10,
+  "jwt_secret": "myappjwtsecret"
+}
