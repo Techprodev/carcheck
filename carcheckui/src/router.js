@@ -5,38 +5,20 @@ import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import Profile from './views/Profile.vue';
 import Users from './views/Users.vue';
+import Vehicles from './views/Vehicles.vue';
 
 Vue.use(Router);
 
 export const router = new Router({
   mode: 'history',
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/home',
-      component: Home
-    },
-    {
-      path: '/login',
-      component: Login
-    },
-    {
-      path: '/register',
-      component: Register
-    },
-    {
-      path: '/profile',
-      component: Profile
-    },
-    {
-      path: '/users',
-      name: 'users',
-      component: Users
-    }
+    { path: '/', name: 'home', component: Home },
+    { path: '/home', component: Home },
+    { path: '/login', component: Login },
+    { path: '/register', component: Register },
+    { path: '/profile', component: Profile },
+    { path: '/users', name: 'users', component: Users },
+    { path: '/vehicles', name: 'vehicles', component: Vehicles }
   ]
 });
 

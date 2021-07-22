@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 
 router.post("/registerVehicle", registerVehicle);
 router.post("/authenticate", authenticate);
-router.get("/getAllVehicle", getAllVehicle);
+router.get("/getAllVehicles", getAllVehicles);
 router.get("/getByIdVehicle/:id", getByIdVehicle);
 router.put("/updateVehicle/:id", updateVehicle);
 router.delete("/deleteVehicle/:id", deleteVehicle);
@@ -31,7 +31,7 @@ async function registerVehicle(req, res) {
       return res.send(resp);
     }
     var result = await fndb.addNewItem(tables.Vehicles, newVehicle);
-
+    
     if (result) {
       resp.result = result;
       resp.success = true;
@@ -84,7 +84,7 @@ async function authenticate(req, res) {
   return res.send(resp);
 }
 
-async function getAllVehicle(req, res) {
+async function getAllVehicles(req, res) {
   var resp = new Object();
   try {
     var result = await fndb.getAllItems(tables.Vehicles);
