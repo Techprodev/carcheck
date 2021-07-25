@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <h1>Vehicles</h1>
-    {{ vehicles }}
-    <br />
+    <br />    
     <table class="table table-hover">
       <thead>
         <tr>

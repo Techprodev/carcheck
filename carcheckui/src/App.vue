@@ -13,9 +13,14 @@
             >Users</router-link
           >
         </li>
-          <li class="nav-item">
+        <li class="nav-item">
           <router-link v-if="currentUser" to="/vehicles" class="nav-link"
             >Vehicles</router-link
+          >
+        </li>
+         <li class="nav-item">
+          <router-link v-if="currentUser" to="/registervehicle" class="nav-link"
+            >Register Vehicle</router-link
           >
         </li>
       </div>

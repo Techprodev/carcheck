@@ -6,6 +6,7 @@ import Register from './views/Register.vue';
 import Profile from './views/Profile.vue';
 import Users from './views/Users.vue';
 import Vehicles from './views/Vehicles.vue';
+import RegisterVehicle from './views/RegisterVehicle.vue';
 
 Vue.use(Router);
 
@@ -18,7 +19,8 @@ export const router = new Router({
     { path: '/register', component: Register },
     { path: '/profile', component: Profile },
     { path: '/users', name: 'users', component: Users },
-    { path: '/vehicles', name: 'vehicles', component: Vehicles }
+    { path: '/vehicles', name: 'vehicles', component: Vehicles },
+    { path: '/registervehicle', name: 'RegisterVehicle', component: RegisterVehicle }
   ]
 });
 

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>All Users</h1>
-    {{ users }}
+    <!-- {{ users }} This is to show in JSON format -->
     <br />
     <table class="table table-hover">
       <thead>
