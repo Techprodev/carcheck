@@ -20,6 +20,21 @@ function getColumns(tableName) {
     veh_mileage:"veh_mileage",
     veh_notes:"veh_notes"
   };
+  var ServiceCols = {
+    vehicleid: "vehicleid",
+    veh_checkin_date: "veh_checkin_date",
+    veh_delivery_date: "veh_delivery_date",
+    veh_invoice_num: "veh_invoice_num",
+    veh_total_bill_amount: "veh_total_bill_amount",
+    veh_amount_paid_advance: "veh_amount_paid_advance",
+    veh_amount_paid_due: "veh_amount_paid_due",
+    veh_payment_type: "veh_payment_type",
+    veh_service_type: "veh_service_type",
+    veh_service_desc: "veh_service_desc",
+    veh_contact_name: "veh_contact_name",
+    veh_contact_num: "veh_contact_num", 
+    veh_mileage_service:"veh_mileage_service"
+  };
 
   switch (tableName) {
     case tables.Users:
@@ -27,6 +42,9 @@ function getColumns(tableName) {
       break;
     case tables.Vehicles:
       return VehicleCols;
+      break;
+    case tables.Services:
+      return ServiceCols;
       break;
     default:
       return null;
@@ -36,11 +54,14 @@ function getColumns(tableName) {
 function getKeyColumn(tableName) {
   const UserKey = "userid";
   const VehicleKey = "vehicleid";
+  const ServiceKey = "serviceid";
   switch (tableName) {
     case tables.Users:
       return UserKey;
     case tables.Vehicles:
       return VehicleKey;
+    case tables.Services:
+      return ServiceKey;
     default:
       return null;
   }

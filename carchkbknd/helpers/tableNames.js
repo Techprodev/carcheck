@@ -1,4 +1,5 @@
 module.exports = {
   Users: "users",
-  Vehicles:"vehicles"
+  Vehicles:"vehicles",
+  Services:"services"
 };

@@ -7,11 +7,15 @@ const fndb = require("../helpers/dbFunctions.js");
 const jwt = require("jsonwebtoken");
 
 router.post("/registerVehicle", registerVehicle);
-router.post("/authenticate", authenticate);
 router.get("/getAllVehicles", getAllVehicles);
+router.get("/getVehiclesByUser", getVehiclesByUser);
 router.get("/getByIdVehicle/:id", getByIdVehicle);
+router.get("/getAllServiceRecords", getAllServiceRecords);
 router.put("/updateVehicle/:id", updateVehicle);
 router.delete("/deleteVehicle/:id", deleteVehicle);
+router.post("/addServiceRecord", addServiceRecord);
+
+
 module.exports = router;
 
 async function registerVehicle(req, res) {
@@ -47,39 +51,6 @@ async function registerVehicle(req, res) {
     resp.result = null;
     resp.success = false;
     resp.message = "Error: Error in saving information";
-  }
-  return res.send(resp);
-}
-
-async function authenticate(req, res) {
-  var resp = new Object();
-  try {
-    let result = await fndb.getItemByColumn(
-      tables.Users,
-      "username",
-      req.body.username
-    );
-
-    if (result.length > 0) {
-      let usr = result[0];
-      if (req.body.userpassword == usr["userpassword"]) {
-        usr["userpassword"] = "";
-      }
-      const token = jwt.sign({ sub: usr.Id }, config.jwt_secret);
-      usr.token = token;
-      resp.result = usr;
-      resp.success = true;
-      resp.message = "user authenticated";
-    } else {
-      resp.result = null;
-      resp.success = false;
-      resp.message = "Error: Invalid User Name or Password";
-    }
-  } catch (err) {
-    console.log("User Service - authenticate" + err);
-    resp.result = null;
-    resp.success = false;
-    resp.message = "Error: User Login";
   }
   return res.send(resp);
 }
@@ -128,6 +99,50 @@ async function getByIdVehicle(req, res) {
   return res.send(resp);
 }
 
+async function getVehiclesByUser(req, res) {
+  var resp = new Object();
+  try {
+    var result = await fndb.getItemByColumn(tables.Vehicles, req.params.id);
+    if (result) {
+      resp.result = result;
+      resp.success = true;
+      resp.message = "Vehicles of user";
+    } else {
+      resp.result = null;
+      resp.success = false;
+      resp.message = "Error: Error in getting vehicles of user";
+    }
+  } catch (err) {
+    console.log("Vehicle Service - getItemByColumn " + err);
+    resp.result = null;
+    resp.success = false;
+    resp.message = "Error: Error in getting vehicles of user";
+  }
+  return res.send(resp);
+}
+
+async function getAllServiceRecords(req, res) {
+  var resp = new Object();
+  try {
+    var result = await fndb.getItemById(tables.Services, req.params.id);
+    if (result) {
+      resp.result = result;
+      resp.success = true;
+      resp.message = "All Service Records";
+    } else {
+      resp.result = null;
+      resp.success = false;
+      resp.message = "Error: Error in getting vehicle Service Records";
+    }
+  } catch (err) {
+    console.log("Vehicle Service - getAllServiceRecords" + err);
+    resp.result = null;
+    resp.success = false;
+    resp.message = "Error: Error in getting vehicle service records";
+  }
+  return res.send(resp);
+}
+
 async function updateVehicle(req, res) {
   var resp = new Object();
   try {
@@ -171,6 +186,32 @@ async function deleteVehicle(req, res) {
     resp.result = null;
     resp.success = false;
     resp.message = "Error: Error in delete vehicle";
+  }
+  return res.send(resp);
+}
+
+async function addServiceRecord(req, res) {
+  var resp = new Object();
+  try {
+    let newService = req.body;
+    const cols = tablecols.getColumns(tables.Services);   
+    var result = await fndb.addNewItem(tables.Services, newService);
+    
+    if (result) {
+      resp.result = result;
+      resp.success = true;
+      resp.message = "Saved Service Record";
+    } else {
+      resp.result = null;
+      resp.success = false;
+      resp.message = "Error: Error in creating Service Record";
+      console.log("Add Service Record", "Error in adding service record");
+    }
+  } catch (err) {
+    console.log("Vehicle Service - Add Service Record" + err);
+    resp.result = null;
+    resp.success = false;
+    resp.message = "Error: Error in creating service record";
   }
   return res.send(resp);
 }
