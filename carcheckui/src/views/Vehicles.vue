@@ -19,6 +19,14 @@
           <td>{{ vehicle.veh_company }}</td>
           <td>{{ vehicle.veh_model }}</td>
           <td>{{ vehicle.veh_notes }}</td>
+           <td>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="getserviceInfo(vehicle.vehicleid)"
+            >
+              Service Records
+            </button>
           <td>
             <button
               type="button"
@@ -75,11 +83,16 @@ export default {
     };
   },
   mounted() {
-    this.getAllVehicles();
+    this.getVehiclesByUser();
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
   },
   methods: {
-    getAllVehicles() {
-      VehicleService.getAllVehicles().then(
+    getVehiclesByUser() {
+      VehicleService.getVehiclesByUser(this.currentUser.userid).then(
         response => {
           this.vehicles = response.data.result;
         },

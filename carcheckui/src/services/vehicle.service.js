@@ -8,11 +8,15 @@ class VehicleService {
   getAllVehicles() {
     return axios.get(API_URL + 'vehicles/getAllVehicles', { headers: authHeader() });
   }
+  getVehiclesByUser(id) {
+    return axios.get(API_URL + 'vehicles/getVehiclesByUser/' + id, { headers: authHeader() });
+  }
   getVehicleInfo(id) {
     return axios.get(API_URL + 'vehicles/getByIdVehicle/' + id, {
       headers: authHeader()
     });
   }
+  
 }
 
 export default new VehicleService();

@@ -120,12 +120,18 @@ export default {
       message: ''
     };
   },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
+  },
   methods: {    
     RegisterVehicle() {
       this.message = '';
       this.submitted = true;
       this.$validator.validate().then(isValid => {
-        if (isValid) {          
+        if (isValid) {  
+          this.vehicle.userid = this.currentUser.userid;
           return axios.post(API_URL + 'vehicles/registervehicle', this.vehicle).then(
             data => {
               this.message = data.message;
