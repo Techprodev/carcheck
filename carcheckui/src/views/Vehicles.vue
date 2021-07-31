@@ -21,50 +21,31 @@
           <td>{{ vehicle.veh_notes }}</td>
            <td>
             <button
-              type="button"
-              class="btn btn-primary"
-              @click.prevent="getserviceInfo(vehicle.vehicleid)"
+              type="button" class="btn btn-primary"
+              @click.prevent="getServiceRecordsByVehicle(vehicle.vehicleid)"
             >
               Service Records
             </button>
+            <td>
+            <button type="button" class="btn btn-primary"
+              @click.prevent="addservicerecord(vehicle.vehicleid)"
+            >
+              Add Service Data
+            </button>
+           </td>
           <td>
             <button
-              type="button"
-              class="btn btn-primary"
+              type="button" class="btn btn-primary"
               @click.prevent="getvehicleInfo(vehicle.vehicleid)"
             >
-              Edit
+              Edit Vehicle
             </button>
+            <td>
             &nbsp; <button type="button" class="btn btn-danger">Delete</button>
           </td>
         </tr>
       </tbody>
-    </table>
-    <div v-if="showModal">
-      <transition name="modal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title">Modal title</h4>
-                  <button
-                    type="button"
-                    class="close"
-                    @click="showModal = false"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  {{ user }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </transition>
-    </div>
+    </table>    
   </div>
 </template>
 
@@ -76,10 +57,9 @@ export default {
   name: 'Vehicles',
   data() {
     return {
-      user: new Vehicle(),
+      vehicle: new Vehicle(),
       vehicles: [],
-      message: '',
-      showModal: false
+      message: ''
     };
   },
   mounted() {
@@ -110,7 +90,7 @@ export default {
       VehicleService.getVehicleInfo(id).then(
         response => {
           this.vehicle = response.data.result;
-          this.showModal = true;
+          // this.$router.push({ name: 'getvehicleinfo', params: { id: id }});
         },
         error => {
           this.message =
@@ -122,8 +102,12 @@ export default {
         }
       );
     },
-    editUser() {},
-    deleteUser() {}
+    getServiceRecordsByVehicle(id) {
+      //this.$router.push('/servicerecords/', this.services);
+      this.$router.push({ name: 'servicerecords', params: { id: id }});
+    },   
+    editVehicle() {},
+    deleteVehicle() {}
   }
 };
 </script>
@@ -140,7 +124,6 @@ export default {
   display: table;
   transition: opacity 0.3s ease;
 }
-
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
