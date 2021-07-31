@@ -9,8 +9,8 @@ const jwt = require("jsonwebtoken");
 router.post("/registerVehicle", registerVehicle);
 router.get("/getAllVehicles", getAllVehicles);
 router.get("/getVehiclesByUser/:id", getVehiclesByUser);
+router.get("/getServiceRecordsByVehicle/:id", getServiceRecordsByVehicle);
 router.get("/getByIdVehicle/:id", getByIdVehicle);
-router.get("/getAllServiceRecords", getAllServiceRecords);
 router.put("/updateVehicle/:id", updateVehicle);
 router.delete("/deleteVehicle/:id", deleteVehicle);
 router.post("/addServiceRecord", addServiceRecord);
@@ -121,24 +121,24 @@ async function getVehiclesByUser(req, res) {
   return res.send(resp);
 }
 
-async function getAllServiceRecords(req, res) {
+async function getServiceRecordsByVehicle(req, res) {
   var resp = new Object();
   try {
-    var result = await fndb.getItemById(tables.Services, req.params.id);
+    var result = await fndb.getItemByColumn(tables.Services, "vehicleid", req.params.id);
     if (result) {
       resp.result = result;
       resp.success = true;
-      resp.message = "All Service Records";
+      resp.message = "Service Records of Vehicle";
     } else {
       resp.result = null;
       resp.success = false;
-      resp.message = "Error: Error in getting vehicle Service Records";
+      resp.message = "Error: Error in getting service records of vehicle";
     }
   } catch (err) {
-    console.log("Vehicle Service - getAllServiceRecords" + err);
+    console.log("Vehicle Service - getItemByColumn " + err);
     resp.result = null;
     resp.success = false;
-    resp.message = "Error: Error in getting vehicle service records";
+    resp.message = "Error: Error in getting service records";
   }
   return res.send(resp);
 }
