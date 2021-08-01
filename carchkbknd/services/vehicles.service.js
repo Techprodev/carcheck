@@ -10,6 +10,7 @@ router.post("/registerVehicle", registerVehicle);
 router.get("/getAllVehicles", getAllVehicles);
 router.get("/getVehiclesByUser/:id", getVehiclesByUser);
 router.get("/getServiceRecordsByVehicle/:id", getServiceRecordsByVehicle);
+router.get("/getByIdServiceRecord/:id", getByIdServiceRecord);
 router.get("/getByIdVehicle/:id", getByIdVehicle);
 router.put("/updateVehicle/:id", updateVehicle);
 router.delete("/deleteVehicle/:id", deleteVehicle);
@@ -95,6 +96,28 @@ async function getByIdVehicle(req, res) {
     resp.result = null;
     resp.success = false;
     resp.message = "Error: Error in getting vehicle information";
+  }
+  return res.send(resp);
+}
+
+async function getByIdServiceRecord(req, res) {
+  var resp = new Object();
+  try {
+    var result = await fndb.getItemById(tables.Services, "serviceid", req.params.id);
+    if (result) {
+      resp.result = result;
+      resp.success = true;
+      resp.message = "Service Record Data";
+    } else {
+      resp.result = null;
+      resp.success = false;
+      resp.message = "Error: Error in getting service information";
+    }
+  } catch (err) {
+    console.log("Vehicle Service - getByIdService" + err);
+    resp.result = null;
+    resp.success = false;
+    resp.message = "Error: Error in getting service information";
   }
   return res.send(resp);
 }

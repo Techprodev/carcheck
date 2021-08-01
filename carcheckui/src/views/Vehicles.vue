@@ -90,7 +90,6 @@ export default {
       VehicleService.getVehicleInfo(id).then(
         response => {
           this.vehicle = response.data.result;
-          // this.$router.push({ name: 'getvehicleinfo', params: { id: id }});
         },
         error => {
           this.message =
@@ -103,7 +102,6 @@ export default {
       );
     },
     getServiceRecordsByVehicle(id) {
-      //this.$router.push('/servicerecords/', this.services);
       this.$router.push({ name: 'servicerecords', params: { id: id }});
     },   
     editVehicle() {},

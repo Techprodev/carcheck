@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <h1>Service Records</h1>
+    <h1>Service Record {{ service }}</h1>
+    <h1>Service Record {{ services }}</h1>
+    <h2>{{ service.veh_checkin_date }} </h2>
+
     <br />    
     <table class="table table-hover">
       <thead>
@@ -15,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="service in services" :key="service.serviceid">
+        <tr v-for="service in services" :key="service.serviceid">     
           <th scope="row">{{ service.serviceid }}</th>
           <td>{{ service.veh_invoice_num }}</td>
           <td>{{ service.vehicleid }}</td>
@@ -23,15 +26,7 @@
           <td>{{ service.veh_checkin_date }}</td>
           <td>{{ service.veh_delivery_date }}</td>            
           <td>{{ service.veh_total_bill_amount }}</td>
-           <td>
-            <button
-              type="button" class="btn btn-primary"
-              @click.prevent="getByIdServiceRecord(service.serviceid)"
-            >
-              View
-            </button>
-           </td>
-           <td>
+           <td>           
             <button type="button" class="btn btn-primary" 
              @click.prevent="editservicerecord(service.serviceid)">
               Edit
@@ -51,7 +46,7 @@ import VehicleService from '../services/vehicle.service';
 import Service from '../models/service';
 
 export default {
-  name: 'ServiceRecords',
+  name: 'viewservicerecord',
   data() {
     return {
       service: new Service(),
@@ -60,7 +55,7 @@ export default {
     };
   },
   mounted() {
-    this.getServiceRecordsByVehicle();
+    this.getByIdServiceRecord();
   },
   computed: {
     currentUser() {
@@ -68,8 +63,9 @@ export default {
     }
   },
   methods: {   
-    getServiceRecordsByVehicle() {
-      VehicleService.getServiceRecordsByVehicle(this.$route.params.id).then(
+    getByIdServiceRecord() {
+      VehicleService.getByIdServiceRecord(this.$route.params.id).then(
+        console.log('called service record API', ''),
         response => {
           this.services = response.data.result;    
         },
@@ -82,10 +78,7 @@ export default {
             error.toString();
         }
       );
-    },
-    getByIdServiceRecord(id) {
-      this.$router.push({ name: 'viewservicerecord', params: { id: id }});
-    }, 
+    },    
     editServiceRecord() {},
     deleteServiceRecord() {}
   }
