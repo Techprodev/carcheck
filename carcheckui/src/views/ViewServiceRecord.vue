@@ -65,7 +65,6 @@ export default {
   methods: {   
     getByIdServiceRecord() {
       VehicleService.getByIdServiceRecord(this.$route.params.id).then(
-        console.log('called service record API', ''),
         response => {
           this.services = response.data.result;    
         },
