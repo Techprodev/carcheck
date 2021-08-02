@@ -1,37 +1,33 @@
 <template>
   <div class="container">
-    <h1>Service Record {{ service }}</h1>
-    <h1>Service Record {{ services }}</h1>
-    <h2>{{ service.veh_checkin_date }} </h2>
-
+    <h1>Service Record </h1>
     <br />    
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Invoice</th>
-          <th scope="col">Vehicle Id</th>
-          <th scope="col">Service Id</th>
           <th scope="col">Received Date</th>
           <th scope="col">Delivery Date</th>
-          <th scope="col">Bill Amount</th>
+          <th scope="col">Total Amount</th>
+          <th scope="col">Advance Paid</th>                    
         </tr>
       </thead>
       <tbody>
         <tr v-for="service in services" :key="service.serviceid">     
           <th scope="row">{{ service.serviceid }}</th>
           <td>{{ service.veh_invoice_num }}</td>
-          <td>{{ service.vehicleid }}</td>
-          <td>{{ service.serviceid }}</td>
           <td>{{ service.veh_checkin_date }}</td>
-          <td>{{ service.veh_delivery_date }}</td>            
+          <td>{{ service.veh_delivery_date }}</td>  
           <td>{{ service.veh_total_bill_amount }}</td>
-           <td>           
+          <td>{{ service.veh_amount_paid_advance }}</td>
+          <td>{{ service.veh_total_bill_amount }}</td>                                        
+          <td>           
             <button type="button" class="btn btn-primary" 
              @click.prevent="editservicerecord(service.serviceid)">
               Edit
             </button>
-           </td>
+          </td>
           <td>
             <button type="button" class="btn btn-danger">Delete</button>
           </td>
