@@ -27,12 +27,12 @@
               Service Records
             </button>
             <td>
-            <button type="button" class="btn btn-primary"
-              @click.prevent="addservicerecord(vehicle.vehicleid)"
+              <button
+              type="button" class="btn btn-primary"
+              @click.prevent="addServiceRecord(vehicle.vehicleid)"
             >
-              Add Service Data
-            </button>
-           </td>
+             Add Service Record
+            </button> 
           <td>
             <button
               type="button" class="btn btn-primary"
@@ -103,6 +103,9 @@ export default {
     },
     getServiceRecordsByVehicle(id) {
       this.$router.push({ name: 'servicerecords', params: { id: id }});
+    },   
+    addServiceRecord(id) {
+      this.$router.push({ name: 'addservicerecord', params: { id: id }});
     },   
     editVehicle() {},
     deleteVehicle() {}
