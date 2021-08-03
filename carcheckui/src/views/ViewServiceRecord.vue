@@ -10,7 +10,8 @@
           <th scope="col">Received Date</th>
           <th scope="col">Delivery Date</th>
           <th scope="col">Total Amount</th>
-          <th scope="col">Advance Paid</th>                    
+          <th scope="col">Advance Paid</th>
+          <th scope="col">Vehicle Payment Type</th>                     
         </tr>
       </thead>
       <tbody>
