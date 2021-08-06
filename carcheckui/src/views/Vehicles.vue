@@ -20,7 +20,7 @@
           <td>{{ vehicle.veh_model }}</td>
           <td>{{ vehicle.veh_notes }}</td>
            <td>
-            <button
+            <button 
               type="button" class="btn btn-primary"
               @click.prevent="getServiceRecordsByVehicle(vehicle.vehicleid)"
             >
@@ -36,9 +36,9 @@
           <td>
             <button
               type="button" class="btn btn-primary"
-              @click.prevent="getvehicleInfo(vehicle.vehicleid)"
+              @click.prevent="getByIdVehicleRecord(vehicle.vehicleid)"
             >
-              Edit Vehicle
+              View Vehicle
             </button>
             <td>
             &nbsp; <button type="button" class="btn btn-danger">Delete</button>
@@ -106,7 +106,10 @@ export default {
     },   
     addServiceRecord(id) {
       this.$router.push({ name: 'addservicerecord', params: { id: id }});
-    },   
+    }, 
+    getByIdVehicleRecord(id) {
+      this.$router.push({ name: 'viewvehiclerecord', params: { id: id }});
+    },  
     editVehicle() {},
     deleteVehicle() {}
   }

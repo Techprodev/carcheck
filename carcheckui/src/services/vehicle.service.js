@@ -17,6 +17,9 @@ class VehicleService {
   getByIdServiceRecord(id) {
     return axios.get(API_URL + 'vehicles/getByIdServiceRecord/' + id, { headers: authHeader() });
   }
+  getByIdVehicleRecord(id) {
+    return axios.get(API_URL + 'vehicles/getByIdVehicleRecord/' + id, { headers: authHeader() });
+  }
   getVehicleInfo(id) {
     return axios.get(API_URL + 'vehicles/getByIdVehicle/' + id, {
       headers: authHeader()
