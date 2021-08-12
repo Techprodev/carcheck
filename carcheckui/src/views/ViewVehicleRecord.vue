@@ -29,8 +29,8 @@
           <td>{{ vehicle.veh_mileage }}</td>
           <td>{{ vehicle.veh_notes }}</td>   
           <td>
-            <button type="button" class="btn btn-primary" 
-        @click.prevent="editvehiclerecord(vehicle.vehicleid)">
+            <button type="button" v-if="vehicle.vehicleid!=0" class="btn btn-primary" 
+        @click.prevent="editvehicle(vehicle.vehicleid)">
         Edit
       </button>&nbsp;&nbsp;&nbsp;
               <button
@@ -89,8 +89,11 @@ export default {
     }, 
     getServiceRecordsByVehicle(id) {
       this.$router.push({ name: 'servicerecords', params: { id: id }});
-    },      
-    editVehicleRecord() {},
+    },  
+    editvehicle(id) {
+      this.$router.push({ name: 'editvehiclerecord', params: { id: id }});
+    },
+   
     deleteVehicleRecord() {}
   }
 };
