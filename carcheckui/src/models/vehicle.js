@@ -6,6 +6,6 @@ export default class Vehicle {
     this.veh_model     = veh_model;   
     this.veh_fuel_type = veh_fuel_type;  
     this.veh_mileage   = veh_mileage;
-    this.veh_notes     = veh_notes
+    this.veh_notes     = veh_notes;
   }
 }

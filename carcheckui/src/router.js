@@ -12,6 +12,7 @@ import ViewVehicleRecord from './views/ViewVehicleRecord.vue';
 import RegisterVehicle from './views/RegisterVehicle.vue';
 import EditVehicleRecord from './views/EditVehicleRecord.vue';
 import AddServiceRecord from './views/AddServiceRecord.vue';
+import EditServiceRecord from './views/EditServiceRecord.vue';
 
 Vue.use(Router);
 
@@ -30,7 +31,8 @@ export const router = new Router({
     { path: '/viewvehiclerecord/:id', name: 'viewvehiclerecord', component: ViewVehicleRecord },
     { path: '/editvehiclerecord/:id', name: 'editvehiclerecord', component: EditVehicleRecord },
     { path: '/registervehicle', name: 'RegisterVehicle', component: RegisterVehicle },
-    { path: '/addservicerecord/:id', name: 'addservicerecord', component: AddServiceRecord }
+    { path: '/addservicerecord/:id', name: 'addservicerecord', component: AddServiceRecord },
+    { path: '/editservicerecord/:id', name: 'editservicerecord', component: EditServiceRecord },
   ]
 });
 

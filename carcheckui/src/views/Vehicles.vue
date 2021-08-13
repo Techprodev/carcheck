@@ -7,7 +7,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Reg Num</th>
-          <th scope="col">Comany</th>
+          <th scope="col">Company</th>
           <th scope="col">Model</th>
           <th scope="col">Notes</th>
         </tr>
@@ -40,8 +40,11 @@
             >
               View Vehicle
             </button>
-            <td>
-            &nbsp; <button type="button" class="btn btn-danger">Delete</button>
+            <td>          
+            <button type="button" class="btn btn-danger" 
+              @click.prevent="deleteVehicleRecord(vehicle.vehicleid)">
+              Delete
+          </button>
           </td>
         </tr>
       </tbody>
@@ -52,6 +55,10 @@
 <script>
 import VehicleService from '../services/vehicle.service';
 import Vehicle from '../models/vehicle';
+
+import axios from 'axios';
+
+const API_URL = 'http://localhost:3000/';
 
 export default {
   name: 'Vehicles',
@@ -110,8 +117,25 @@ export default {
     getByIdVehicleRecord(id) {
       this.$router.push({ name: 'viewvehiclerecord', params: { id: id }});
     },  
-    editVehicle() {},
-    deleteVehicle() {}
+    deleteVehicleRecord(id) {
+      return axios.delete(API_URL + 'vehicles/deleteVehicle/' + id ).then(
+            data => {
+              this.message = data.message;
+              this.successful = true;
+              alert('Vehicle Deleted successfully', '');
+              this.$router.push('/vehicles');            
+            },
+            error => {
+              this.message =
+                (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+                error.message ||
+                error.toString();
+              this.successful = false;
+            }
+      );
+    }   
   }
 };
 </script>

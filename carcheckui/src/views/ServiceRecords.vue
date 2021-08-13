@@ -2,11 +2,10 @@
   <div class="container">
     <h1>Service Records</h1>
     <br />    
-    <table class="table table-hover">
+    <table class="table table-hover" v-if="services.length > 0">
       <thead>
         <tr>
-          <th scope="col" rowspan="5">Sl.No</th>
-            <th scope="col">Vehicle Id</th>
+          <th scope="col" rowspan="5">Sl.No</th>            
           <th scope="col">Invoice</th>
           <th scope="col">Received Date</th>
           <th scope="col">Name</th>
@@ -22,8 +21,7 @@
       </thead>
       <tbody>
         <tr v-for="service in services" :key="service.serviceid">
-          <th scope="row">{{ service.serviceid }}</th>
-          <td>{{ service.vehicleid }}</td>
+          <th scope="row">{{ service.serviceid }}</th>          
           <td>{{ service.veh_invoice_num }}</td>
           <td>{{ service.veh_checkin_date }}</td>
           <td>{{ service.veh_contact_name }}</td>
@@ -43,24 +41,33 @@
               View
             </button>
            </td>
-           <td>
-            <button type="button" class="btn btn-primary" 
-             @click.prevent="editservicerecord(service.serviceid)">
+           <td>            
+            <button type="button" v-if="service.serviceid!=0" class="btn btn-primary" 
+              @click.prevent="editservicerecord(service.serviceid)">
               Edit
             </button>
            </td>
-          <td>
-            <button type="button" class="btn btn-danger">Delete</button>
+          <td>          
+            <button type="button" class="btn btn-danger" 
+              @click.prevent="deleteServiceRecord(service.serviceid)">
+              Delete
+          </button>
           </td>
         </tr>
       </tbody>
-    </table>   
+    </table>  
+      <div v-if="services.length == 0">
+         <h2>No Service Records </h2>
+      </div> 
   </div>
 </template>
 
 <script>
 import VehicleService from '../services/vehicle.service';
 import Service from '../models/service';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:3000/';
 
 export default {
   name: 'ServiceRecords',
@@ -98,8 +105,29 @@ export default {
     getByIdServiceRecord(id) {
       this.$router.push({ name: 'viewservicerecord', params: { id: id }});
     }, 
-    editServiceRecord() {},
-    deleteServiceRecord() {}
+    editservicerecord(id) {
+      this.$router.push({ name: 'editservicerecord', params: { id: id }});
+    },     
+    deleteServiceRecord(id) {
+      return axios.delete(API_URL + 'vehicles/deleteService/' + id ).then(
+            data => {
+              this.message = data.message;
+              this.successful = true;
+              alert('Vehicle Service Record Deleted successfully', '');
+              this.$router.push('/vehicles');            
+            },
+            error => {
+              this.message =
+                (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+                error.message ||
+                error.toString();
+              this.successful = false;
+            }
+      );
+    }
+    
   }
 };
 </script>

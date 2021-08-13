@@ -1,17 +1,28 @@
 <template>
   <div class="container">
-    <h1>Vehicle Record </h1>
-    <br />    
-    <div>
-      
-  
-            
+    <h2>Vehicle {{ vehicle.veh_reg_num }} </h2>
+    <br />  
+     <button type="button" v-if="vehicle.vehicleid!=0" class="btn btn-primary" 
+        @click.prevent="editvehicle(vehicle.vehicleid)">
+        Edit
+     </button>
+      &nbsp;&nbsp;&nbsp;
+              <button
+        type="button" class="btn btn-primary"
+        @click.prevent="getServiceRecordsByVehicle(vehicle.vehicleid)"
+      >
+        Service Records
+      </button>
+    <br />
+    <br />
+    <br />   
+    <div>                  
     </div>
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Registration</th>
+          
           <th scope="col">Company</th>
           <th scope="col">Model</th>
           <th scope="col">Fuel</th>
@@ -20,30 +31,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="vehicle in vehicles" :key="vehicle.vehicleid">     
+        <tr >     
           <th scope="row">{{ vehicle.vehicleid }}</th>
-          <td>{{ vehicle.veh_reg_num }}</td>
+          
           <td>{{ vehicle.veh_company }}</td>
           <td>{{ vehicle.veh_model }}</td>  
           <td>{{ vehicle.veh_fuel_type }}</td>
           <td>{{ vehicle.veh_mileage }}</td>
-          <td>{{ vehicle.veh_notes }}</td>   
-          <td>
-            <button type="button" v-if="vehicle.vehicleid!=0" class="btn btn-primary" 
-        @click.prevent="editvehicle(vehicle.vehicleid)">
-        Edit
-      </button>&nbsp;&nbsp;&nbsp;
-              <button
-        type="button" class="btn btn-primary"
-        @click.prevent="getServiceRecordsByVehicle(vehicle.vehicleid)"
-      >
-        Service Records
-      </button>&nbsp;&nbsp;
-      <button type="button" class="btn btn-danger" 
-        @click.prevent="deletevehiclerecord(vehicle.vehicleid)">
-        Delete
-      </button>
-          </td>                                              
+          <td>{{ vehicle.veh_notes }}</td>                                                                    
         </tr>
       </tbody>
     </table>   
@@ -59,7 +54,6 @@ export default {
   data() {
     return {
       vehicle: new Vehicle(),
-      vehicles: [],
       message: ''
     };
   },
@@ -75,7 +69,7 @@ export default {
     getByIdVehicleRecord() {
       VehicleService.getByIdVehicleRecord(this.$route.params.id).then(
         response => {
-          this.vehicles = response.data.result;    
+          this.vehicle = response.data.result[0];    
         },
         error => {
           this.message =
@@ -92,9 +86,7 @@ export default {
     },  
     editvehicle(id) {
       this.$router.push({ name: 'editvehiclerecord', params: { id: id }});
-    },
-   
-    deleteVehicleRecord() {}
+    },    
   }
 };
 </script>

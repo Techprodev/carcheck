@@ -15,6 +15,8 @@ router.get("/getByIdVehicleRecord/:id", getByIdVehicleRecord);
 router.put("/updateVehicle/:id", updateVehicle);
 router.delete("/deleteVehicle/:id", deleteVehicle);
 router.post("/addServiceRecord", addServiceRecord);
+router.put("/updateService/:id", updateService);
+router.delete("/deleteService/:id", deleteService);
 
 
 module.exports = router;
@@ -235,6 +237,52 @@ async function addServiceRecord(req, res) {
     resp.result = null;
     resp.success = false;
     resp.message = "Error: Error in creating service record";
+  }
+  return res.send(resp);
+}
+async function updateService(req, res) {
+  var resp = new Object();
+  try {
+    var result = await fndb.updateItem(tables.Services, req.params.id, req.body);
+
+    if (result) {
+      resp.result = result;
+      resp.success = true;
+      resp.message = "Updated Vehicle Service data";
+    } else {
+      resp.result = null;
+      resp.success = false;
+      resp.message = "Error: Error in saving vehicle information";
+      console.log("updateService", "Error in saving vehicle data");
+    }
+  } catch (err) {
+    console.log("Vehicle Service - updateService " + err);
+    resp.result = null;
+    resp.success = false;
+    resp.message = "Error: Error in update Service - vehicle service";
+  }
+  return res.send(resp);
+}
+
+async function deleteService(req, res) {
+  var resp = new Object();
+  try {
+    var result = await fndb.deleteItem(tables.Services, req.params.id);
+
+    if (result) {
+      resp.result = result;
+      resp.success = true;
+      resp.message = "Save Vehicle Data";
+    } else {
+      resp.result = null;
+      resp.success = false;
+      resp.message = "Error: Error in delete Service ";
+    }
+  } catch (err) {
+    console.log("Vehicle Service - deleteService " + err);
+    resp.result = null;
+    resp.success = false;
+    resp.message = "Error: Error in delete service";
   }
   return res.send(resp);
 }

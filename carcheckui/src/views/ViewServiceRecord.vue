@@ -1,11 +1,16 @@
 <template>
   <div class="container">
     <h1>Service Record </h1>
-    <br />    
+    <br />  
+    <div>
+      <button type="button" v-if="service.serviceid!=0" class="btn btn-primary" 
+        @click.prevent="editservicerecord(service.serviceid)">
+        Edit
+      </button>            
+    </div><br/>
     <table class="table table-hover">
       <thead>
-        <tr>
-          <th scope="col">#</th>
+        <tr>          
           <th scope="col">Invoice</th>
           <th scope="col">Received Date</th>
           <th scope="col">Delivery Date</th>
@@ -15,23 +20,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="service in services" :key="service.serviceid">     
-          <th scope="row">{{ service.serviceid }}</th>
-          <td>{{ service.veh_invoice_num }}</td>
+        <tr>     
+          <th scope="row">{{ service.veh_invoice_num }}</th>          
           <td>{{ service.veh_checkin_date }}</td>
           <td>{{ service.veh_delivery_date }}</td>  
           <td>{{ service.veh_total_bill_amount }}</td>
           <td>{{ service.veh_amount_paid_advance }}</td>
-          <td>{{ service.veh_total_bill_amount }}</td>                                        
-          <td>           
-            <button type="button" class="btn btn-primary" 
-             @click.prevent="editservicerecord(service.serviceid)">
-              Edit
-            </button>
-          </td>
-          <td>
-            <button type="button" class="btn btn-danger">Delete</button>
-          </td>
+          <td>{{ service.veh_total_bill_amount }}</td>                                                          
         </tr>
       </tbody>
     </table>   
@@ -47,7 +42,6 @@ export default {
   data() {
     return {
       service: new Service(),
-      services: [],
       message: ''
     };
   },
@@ -63,7 +57,7 @@ export default {
     getByIdServiceRecord() {
       VehicleService.getByIdServiceRecord(this.$route.params.id).then(
         response => {
-          this.services = response.data.result;    
+          this.service = response.data.result[0];    
         },
         error => {
           this.message =
@@ -75,8 +69,9 @@ export default {
         }
       );
     },    
-    editServiceRecord() {},
-    deleteServiceRecord() {}
+    editservicerecord(id) {
+      this.$router.push({ name: 'editservicerecord', params: { id: id }});
+    },        
   }
 };
 </script>
