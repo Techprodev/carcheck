@@ -8,6 +8,8 @@ import 'jquery/dist/jquery.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import VeeValidate from 'vee-validate';
 import Vuex from 'vuex';
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
@@ -20,12 +22,18 @@ import {
 
 library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
 
+const options = {
+  confirmButtonColor: '#41b882',
+  cancelButtonColor: '#ff7674'
+};
+
 Vue.config.productionTip = false;
 
 Vue.use(VeeValidate);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Vuex);
+Vue.use(VueSweetalert2, options);
 
 new Vue({
   router,

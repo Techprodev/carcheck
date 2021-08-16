@@ -48,8 +48,8 @@
             </button>
            </td>
           <td>          
-            <button type="button" class="btn btn-danger" 
-              @click.prevent="deleteServiceRecord(service.serviceid)">
+            <button type="button" class="btn btn-danger"               
+              @click.prevent="showAlertConfirm(service.serviceid)">  
               Delete
           </button>
           </td>
@@ -107,14 +107,29 @@ export default {
     }, 
     editservicerecord(id) {
       this.$router.push({ name: 'editservicerecord', params: { id: id }});
-    },     
+    },
+    showAlertConfirm(id){
+            this.$swal({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'submit'          
+            }).then((result) => {                 
+              if (result.isConfirmed) {                                                              
+                 this.deleteServiceRecord(id);               
+              }
+            });
+    },   
     deleteServiceRecord(id) {
       return axios.delete(API_URL + 'vehicles/deleteService/' + id ).then(
             data => {
               this.message = data.message;
-              this.successful = true;
-              alert('Vehicle Service Record Deleted successfully', '');
-              this.$router.push('/vehicles');            
+              this.successful = true;              
+              this.$swal('Vehicle Service Record Deleted successfully');
+              window.location.reload();                      
             },
             error => {
               this.message =
@@ -126,8 +141,7 @@ export default {
               this.successful = false;
             }
       );
-    }
-    
+    }    
   }
 };
 </script>

@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 <template>
   <div class="container">
-    <h1>Vehicles</h1>
+    <h1>Vehicles</h1>    
     <br />    
     <table class="table table-hover">
       <thead>
@@ -40,11 +41,11 @@
             >
               View Vehicle
             </button>
+            
             <td>          
-            <button type="button" class="btn btn-danger" 
-              @click.prevent="deleteVehicleRecord(vehicle.vehicleid)">
-              Delete
-          </button>
+            <button type="button" class="btn btn-danger"                            
+              v-on:click="showAlertConfirm(vehicle.vehicleid)">Delete              
+            </button>
           </td>
         </tr>
       </tbody>
@@ -116,14 +117,33 @@ export default {
     }, 
     getByIdVehicleRecord(id) {
       this.$router.push({ name: 'viewvehiclerecord', params: { id: id }});
-    },  
+    },
+    showAlertConfirm(id){
+            this.$swal({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'submit'
+          
+            }).then((result) => {                 
+              if (result.isConfirmed) {                                                              
+                 this.deleteVehicleRecord(id);               
+              }
+            });
+    },
+                                                 
     deleteVehicleRecord(id) {
       return axios.delete(API_URL + 'vehicles/deleteVehicle/' + id ).then(
             data => {
               this.message = data.message;
-              this.successful = true;
-              alert('Vehicle Deleted successfully', '');
-              this.$router.push('/vehicles');            
+              this.successful = true;  
+              this.$swal.showCancelButton = true;            
+              this.$swal('Vehicle Deleted successfully');
+              window.location.reload();
+                        
             },
             error => {
               this.message =

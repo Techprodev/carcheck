@@ -153,8 +153,8 @@ export default {
           return axios.put(API_URL + 'vehicles/updateService/' + this.service.serviceid, this.service).then(
             data => {
               this.message = data.message;
-              this.successful = true;
-              alert('Service Record Updated successfully', '');
+              this.successful = true;              
+              this.$swal('Vehicle Service Record Updated Successfully');
               this.$router.push('/vehicles');            
             },
             error => {

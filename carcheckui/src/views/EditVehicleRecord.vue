@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="card card-container">  
       <h2>Edit Vehicle Record</h2>   
-      
+      <button @click="showAlert">Hello world</button>
         <form name="form" @submit.prevent="editVehicleRecord(vehicle)">
           <div class="form-group" >
             <div v-if="!successful">            
@@ -114,7 +114,7 @@ export default {
       vehicle: new Vehicle(),
       submitted: false,
       successful: false,
-      message: ''
+      message: ''      
     };
   },
    mounted() {
@@ -147,6 +147,7 @@ export default {
     editVehicleRecord() {
       this.message = '';
       this.submitted = true;
+      
       this.$validator.validate().then(isValid => {
         
         if (isValid) {  
@@ -154,8 +155,10 @@ export default {
           return axios.put(API_URL + 'vehicles/updateVehicle/' + this.vehicle.vehicleid, this.vehicle).then(
             data => {
               this.message = data.message;
-              this.successful = true;
-              alert('Vehicle Updated successfully', '');
+              this.successful = true;   
+              this.$swal.showCancelButton = true;    
+                  
+              this.$swal('Vehicle Updated successfully');
               this.$router.push('/vehicles');            
             },
             error => {
@@ -170,6 +173,14 @@ export default {
           );
         }
       });
+    },
+    showAlert() {
+      // Use sweetalert2
+        
+     
+      
+      this.$swal.showCancelButton = true;
+      this.$swal('Hello Vue world!!!');
     }
   }
 };
