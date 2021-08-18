@@ -5,8 +5,7 @@
     <br />    
     <table class="table table-hover">
       <thead>
-        <tr>
-          <th scope="col">#</th>
+        <tr>          
           <th scope="col">Reg Num</th>
           <th scope="col">Company</th>
           <th scope="col">Model</th>
@@ -15,8 +14,7 @@
       </thead>
       <tbody>
         <tr v-for="vehicle in vehicles" :key="vehicle.vehicleid">
-          <th scope="row">{{ vehicle.vehicleid }}</th>
-          <td>{{ vehicle.veh_reg_num }}</td>
+          <th scope="row">{{ vehicle.veh_reg_num }}</th>
           <td>{{ vehicle.veh_company }}</td>
           <td>{{ vehicle.veh_model }}</td>
           <td>{{ vehicle.veh_notes }}</td>

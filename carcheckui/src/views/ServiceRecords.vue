@@ -5,34 +5,31 @@
     <table class="table table-hover" v-if="services.length > 0">
       <thead>
         <tr>
-          <th scope="col" rowspan="5">Sl.No</th>            
-          <th scope="col">Invoice</th>
+          <th scope="col" rowspan="5">Invoice</th>                  
           <th scope="col">Received Date</th>
-          <th scope="col">Name</th>
+          <th scope="col">Delivery Date</th>          
           <th scope="col">Mobile Number</th>
           <th scope="col">Total Amount</th>
           <th scope="col">Amount Paid Advance</th>
-          <th scope="col">Amount Paid Due </th>
-          <th scope="col">Payment Type </th>
-          <th scope="col">Vehicle Service Type </th>
-           <th scope="col">Vehicle Service Desc </th>
-          <th scope="col">Delivery Date</th>
+          <th scope="col">Amount Paid Due</th>
+          <th scope="col">Payment Type</th>
+          <th scope="col">Vehicle Service Type</th>
+          <th scope="col">Vehicle Service Desc</th>
+          
         </tr>
       </thead>
       <tbody>
         <tr v-for="service in services" :key="service.serviceid">
-          <th scope="row">{{ service.serviceid }}</th>          
-          <td>{{ service.veh_invoice_num }}</td>
-          <td>{{ service.veh_checkin_date }}</td>
-          <td>{{ service.veh_contact_name }}</td>
+          <th scope="row">{{ service.veh_invoice_num }}</th>                  
+          <td>{{ formatDate(service.veh_checkin_date) }}</td>
+          <td>{{ formatDate(service.veh_delivery_date) }}</td>
           <td>{{ service.veh_contact_num }}</td>
           <td>{{ service.veh_total_bill_amount }}</td>
           <td>{{ service.veh_amount_paid_advance }}</td>
           <td>{{ service.veh_amount_paid_due }}</td>
           <td>{{ service.veh_payment_type}}</td>
           <td>{{ service.veh_service_type}}</td>
-          <td>{{ service.veh_service_desc}}</td>
-          <td>{{ service.veh_delivery_date }}</td>            
+          <td>{{ service.veh_service_desc}}</td>                     
            <td>
             <button
               type="button" class="btn btn-primary"
@@ -141,7 +138,12 @@ export default {
               this.successful = false;
             }
       );
-    }    
+    },
+    formatDate(dateString) {
+            const date = new Date(dateString);
+                // Then specify how you want your dates to be formatted
+            return new Intl.DateTimeFormat('en-EN', {dateStyle: 'short'}).format(date);
+    }       
   }
 };
 </script>

@@ -22,11 +22,11 @@
       <tbody>
         <tr>     
           <th scope="row">{{ service.veh_invoice_num }}</th>          
-          <td>{{ service.veh_checkin_date }}</td>
-          <td>{{ service.veh_delivery_date }}</td>  
+          <td>{{ formatDate(service.veh_checkin_date) }}</td>
+          <td>{{ formatDate(service.veh_delivery_date) }}</td>  
           <td>{{ service.veh_total_bill_amount }}</td>
           <td>{{ service.veh_amount_paid_advance }}</td>
-          <td>{{ service.veh_total_bill_amount }}</td>                                                          
+          <td>{{ service.veh_payment_type}}</td>                                                          
         </tr>
       </tbody>
     </table>   
@@ -71,26 +71,16 @@ export default {
     },    
     editservicerecord(id) {
       this.$router.push({ name: 'editservicerecord', params: { id: id }});
-    },        
+    },
+     formatDate(dateString) {
+            const date = new Date(dateString);
+                // Then specify how you want your dates to be formatted
+            return new Intl.DateTimeFormat('en-EN', {dateStyle: 'short'}).format(date);
+    }               
   }
 };
 </script>
 
 <style>
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
-}
 
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
 </style>

@@ -3,7 +3,9 @@ import App from './App.vue';
 import { router } from './router';
 import store from './store';
 import 'bootstrap';
+import {BootstrapVue, IconsPlugin} from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-vue/dist/bootstrap-vue.min.css';
 import 'jquery/dist/jquery.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import VeeValidate from 'vee-validate';
@@ -31,7 +33,8 @@ Vue.config.productionTip = false;
 
 Vue.use(VeeValidate);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
-
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 Vue.use(Vuex);
 Vue.use(VueSweetalert2, options);
 
