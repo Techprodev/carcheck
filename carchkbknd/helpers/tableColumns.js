@@ -10,6 +10,7 @@ function getColumns(tableName) {
     userpassword: "userpassword",
     mobile: "mobile",
     email: "email",
+    roletype: "roletype"
   };
   var VehicleCols = {
     userid: "userid",

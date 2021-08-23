@@ -78,7 +78,11 @@ export default {
   },
   methods: {
     getVehiclesByUser() {
-      VehicleService.getVehiclesByUser(this.currentUser.userid).then(
+      var userid = this.currentUser.userid;
+      if (this.$route.params.id) {
+       userid =  this.$route.params.id;
+      }
+      VehicleService.getVehiclesByUser(userid).then(
         response => {
           this.vehicles = response.data.result;
         },

@@ -9,7 +9,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link v-if="currentUser" to="/users" class="nav-link"
+          <router-link v-if="currentUser && currentUser.roletype==1"  to="/users" class="nav-link"
             >Users</router-link
           >
         </li>
@@ -52,7 +52,6 @@
         </li>
       </div>
     </nav>
-
     <div class="container">
       <router-view />
     </div>

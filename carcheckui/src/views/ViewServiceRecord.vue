@@ -72,10 +72,10 @@ export default {
     editservicerecord(id) {
       this.$router.push({ name: 'editservicerecord', params: { id: id }});
     },
-     formatDate(dateString) {
+    formatDate(dateString) {
             const date = new Date(dateString);
                 // Then specify how you want your dates to be formatted
-            return new Intl.DateTimeFormat('en-EN', {dateStyle: 'short'}).format(date);
+            return new Intl.DateTimeFormat('en-GB', {dateStyle: 'short'}).format(date);
     }               
   }
 };

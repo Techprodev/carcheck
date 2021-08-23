@@ -27,6 +27,12 @@
               Edit
             </button>
             &nbsp; <button type="button" class="btn btn-danger">Delete</button>
+             <button 
+              type="button" class="btn btn-primary"
+              @click.prevent="getAllVehiclesOfUser(user.userid)"
+            >
+              Get Vehicle Records
+            </button>
           </td>
         </tr>
       </tbody>
@@ -46,6 +52,8 @@
                   >
                     <span aria-hidden="true">&times;</span>
                   </button>
+                  
+           
                 </div>
                 <div class="modal-body">
                   {{ user }}
@@ -108,6 +116,9 @@ export default {
         }
       );
     },
+    getAllVehiclesOfUser(id) {
+      this.$router.push({ name: 'vehicles', params: { id: id }});
+    }, 
     editUser() {},
     deleteUser() {}
   }
