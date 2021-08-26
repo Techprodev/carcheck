@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2>Vehicle {{ vehicle.veh_reg_num }} </h2>
+    <h2>Registration {{ vehicle.veh_reg_num }} </h2>
     <br />  
      <button type="button" v-if="vehicle.vehicleid!=0" class="btn btn-primary" 
         @click.prevent="editvehicle(vehicle.vehicleid)">
@@ -18,30 +18,12 @@
     <br />   
     <div>                  
     </div>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          
-          <th scope="col">Company</th>
-          <th scope="col">Model</th>
-          <th scope="col">Fuel</th>
-          <th scope="col">Mileage</th>
-          <th scope="col">Notes</th>                     
-        </tr>
-      </thead>
-      <tbody>
-        <tr >     
-          <th scope="row">{{ vehicle.vehicleid }}</th>
-          
-          <td>{{ vehicle.veh_company }}</td>
-          <td>{{ vehicle.veh_model }}</td>  
-          <td>{{ vehicle.veh_fuel_type }}</td>
-          <td>{{ vehicle.veh_mileage }}</td>
-          <td>{{ vehicle.veh_notes }}</td>                                                                    
-        </tr>
-      </tbody>
-    </table>   
+    <p><strong>Company : </strong>{{ vehicle.veh_company }}</p>
+    <p><strong>Model   : </strong>{{ vehicle.veh_model }}</p>
+    <p><strong>Fuel    : </strong>{{ vehicle.veh_fuel_type }}</p>
+    <p><strong>Mileage : </strong>{{ vehicle.veh_mileage }}</p>
+    <p><strong>Notes   : </strong>{{ vehicle.veh_notes }}</p>
+       
   </div>
 </template>
 

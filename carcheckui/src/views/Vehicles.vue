@@ -65,7 +65,7 @@ export default {
     return {
       vehicle: new Vehicle(),
       vehicles: [],
-      message: ''
+      message: ''      
     };
   },
   mounted() {

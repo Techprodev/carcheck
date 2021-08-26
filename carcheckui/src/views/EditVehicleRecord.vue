@@ -1,34 +1,28 @@
 <template>
   <div class="col-md-12">
-    <div class="card card-container">  
-      <h2>Edit Vehicle Record</h2>   
-      <button @click="showAlert">Hello world</button>
+    <div class="container">   
+      <h2 type="strong">Edit Vehicle: {{ vehicle.veh_reg_num }}</h2>
+      <div class="card card-container">  
+      
+             
         <form name="form" @submit.prevent="editVehicleRecord(vehicle)">
-          <div class="form-group" >
-            <div v-if="!successful">            
-              <label for="veh_reg_num">Registration Number</label>
-              <input readonly
-                v-model="vehicle.veh_reg_num"               
-                type="text"
-                class="form-control"
-                name="veh_reg_num"
-              />              
-            </div>
-
+          <div class="form-group" >                                       
             <div class="form-group">
-              <label for="veh_company">Company</label>
-              <input
-                v-model ="vehicle.veh_company"
-                v-validate="'required|min:4|max:40'"
-                type="text"
-                class="form-control"
-                name="veh_company"
-              />
-              <div
-                v-if="submitted && errors.has('veh_company')"
-                class="alert-danger"
-              >
-                {{ errors.first('veh_company') }}
+              <div v-if="!successful">
+                <label for="veh_company">Company</label>
+                <input
+                  v-model ="vehicle.veh_company"
+                  v-validate="'required|min:4|max:40'"
+                  type="text"
+                  class="form-control"
+                  name="veh_company"
+                />
+                <div
+                  v-if="submitted && errors.has('veh_company')"
+                  class="alert-danger"
+                >
+                  {{ errors.first('veh_company') }}
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -83,7 +77,7 @@
               </div>
             </div>
             <div class="form-group">
-              <button class="btn btn-default btn-block" @click.prevent="getByIdViewVehicleRecord(vehicle.vehicleid)">Cancel</button>
+              <button class="btn btn-primary btn-block" @click.prevent="getByIdViewVehicleRecord(vehicle.vehicleid)">Cancel</button>
               <button class="btn btn-primary btn-block">Save Vehicle</button>
             </div>
           </div>
@@ -95,6 +89,7 @@
       >
         {{ message }}
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -156,9 +151,8 @@ export default {
             data => {
               this.message = data.message;
               this.successful = true;   
-              this.$swal.showCancelButton = true;    
-                  
-              this.$swal('Vehicle Updated successfully');
+              this.$swal.showCancelButton = true;                      
+              this.$swal('Vehicle updated successfully');
               this.$router.push('/vehicles');            
             },
             error => {
@@ -173,14 +167,6 @@ export default {
           );
         }
       });
-    },
-    showAlert() {
-      // Use sweetalert2
-        
-     
-      
-      this.$swal.showCancelButton = true;
-      this.$swal('Hello Vue world!!!');
     }
   }
 };

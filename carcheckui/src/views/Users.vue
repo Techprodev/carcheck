@@ -8,6 +8,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">User Name</th>
+          <th scope="col">Mobile</th>
           <th scope="col">Email</th>
           <th scope="col">Actions</th>
         </tr>
@@ -26,7 +27,7 @@
             >
               Edit
             </button>
-            &nbsp; <button type="button" class="btn btn-danger">Delete</button>
+            &nbsp; <button type="button" class="btn btn-danger">Delete</button>&nbsp;&nbsp;
              <button 
               type="button" class="btn btn-primary"
               @click.prevent="getAllVehiclesOfUser(user.userid)"
@@ -37,33 +38,6 @@
         </tr>
       </tbody>
     </table>
-    <div v-if="showModal">
-      <transition name="modal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title">Modal title</h4>
-                  <button
-                    type="button"
-                    class="close"
-                    @click="showModal = false"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  
-           
-                </div>
-                <div class="modal-body">
-                  {{ user }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </transition>
-    </div>
   </div>
 </template>
 
@@ -77,8 +51,7 @@ export default {
     return {
       user: new User(),
       users: [],
-      message: '',
-      showModal: false
+      message: ''
     };
   },
   mounted() {
@@ -104,7 +77,6 @@ export default {
       UserService.getUserInfo(id).then(
         response => {
           this.user = response.data.result;
-          this.showModal = true;
         },
         error => {
           this.message =
@@ -137,7 +109,6 @@ export default {
   display: table;
   transition: opacity 0.3s ease;
 }
-
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;

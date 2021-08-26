@@ -45,7 +45,7 @@
             <label for="veh_total_bill_amount">Vehicle Total Bill Amount</label>
             <input
               v-model="service.veh_total_bill_amount"
-              v-validate="'required|min:6|max:300'"
+              v-validate="'required|min:1|max:100'"
               type="text"
               class="form-control"
               name="veh_total_bill_amount"
@@ -55,10 +55,10 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="veh_amount_paid_advance">Vehicle Amount Paid Advance</label>
+            <label for="veh_amount_paid_advance">Amount Paid Advance</label>
             <input
               v-model="service.veh_amount_paid_advance"
-              v-validate="'required|min:6|max:300'"
+              v-validate="'required|min:1|max:300'"
               type="text"
               class="form-control"
               name="veh_amount_paid_advance"
@@ -68,10 +68,10 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="veh_amount_paid_due">Vehicle Amount Paid Due</label>
+            <label for="veh_amount_paid_due">Amount Due</label>
             <input
               v-model="service.veh_amount_paid_due"
-              v-validate="'required|min:6|max:300'"
+              v-validate="'required|min:1|max:300'"
               type="text"
               class="form-control"
               name="veh_amount_paid_due"
@@ -84,7 +84,7 @@
             <label for="veh_payment_type">Vehicle Payment Type</label>
             <input
               v-model="service.veh_payment_type"
-              v-validate="'required|min:6|max:300'"
+              v-validate="'required|min:2|max:100'"
               type="text"
               class="form-control"
               name="veh_payment_type"
@@ -97,7 +97,7 @@
             <label for="veh_service_type">Vehicle Service Type</label>
             <input
               v-model="service.veh_service_type"
-              v-validate="'required|min:6|max:300'"
+              v-validate="'required|min:2|max:300'"
               type="text"
               class="form-control"
               name="veh_service_type"
@@ -110,7 +110,7 @@
             <label for="veh_service_desc">Vehicle Service Desc</label>
             <input
               v-model="service.veh_service_desc"
-              v-validate="'required|min:6|max:300'"
+              v-validate="'required|min:2|max:300'"
               type="text"
               class="form-control"
               name="veh_service_desc"
@@ -123,7 +123,7 @@
             <label for="veh_contact_name">Vehicle Contact Name</label>
             <input
               v-model="service.veh_contact_name"
-              v-validate="'required|min:6|max:300'"
+              v-validate="'required|min:2|max:300'"
               type="text"
               class="form-control"
               name="veh_contact_name"
@@ -136,7 +136,7 @@
             <label for="veh_contact_num">Vehicle Contact Num</label>
             <input
               v-model="service.veh_contact_num"
-              v-validate="'required|min:6|max:300'"
+              v-validate="'required|min:1|max:300'"
               type="number"
               class="form-control"
               name="veh_contact_num"
@@ -149,7 +149,7 @@
             <label for="veh_mileage_service">Vehicle Mileage Service</label>
             <input
               v-model="service.veh_mileage_service"
-              v-validate="'required|min:6|max:300'"
+              v-validate="'required|min:2|max:300'"
               type="text"
               class="form-control"
               name="veh_mileage_service"
@@ -158,7 +158,8 @@
               {{ errors.first('veh_mileage_service') }}
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group">            
+            <button class="btn btn-default btn-block" @click.prevent="goback()">Cancel</button>
             <button class="btn btn-primary btn-block">Add Service Record</button>
           </div>
         </div>
@@ -201,8 +202,8 @@ export default {
           return axios.post(API_URL + 'vehicles/addservicerecord', this.service).then(
             data => {
               this.message = data.message;
-              this.successful = true;
-              alert('Service inserted successfully', '');
+              this.successful = true;              
+              this.$swal('Service Record Added');
               this.$router.push('/vehicles');            
             },
             error => {
@@ -217,7 +218,12 @@ export default {
           );
         }
       });
+    },
+    goback() {
+      this.$router.back();
     }
+            
+
   }
 };
 </script>

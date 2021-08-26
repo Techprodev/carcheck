@@ -11,10 +11,10 @@
           <th scope="col">Mobile Number</th>
           <th scope="col">Total Amount</th>
           <th scope="col">Amount Paid Advance</th>
-          <th scope="col">Amount Paid Due</th>
+          <th scope="col">Amount Due</th>
           <th scope="col">Payment Type</th>
-          <th scope="col">Vehicle Service Type</th>
-          <th scope="col">Vehicle Service Desc</th>
+          <th scope="col">Service Type</th>
+          <th scope="col">Service Desc</th>
           
         </tr>
       </thead>
@@ -113,7 +113,7 @@ export default {
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'submit'          
+              confirmButtonText: 'Submit'          
             }).then((result) => {                 
               if (result.isConfirmed) {                                                              
                  this.deleteServiceRecord(id);               
@@ -125,7 +125,7 @@ export default {
             data => {
               this.message = data.message;
               this.successful = true;              
-              this.$swal('Vehicle Service Record Deleted successfully');
+              this.$swal('Vehicle Service Record Deleted');
               window.location.reload();                      
             },
             error => {
@@ -142,7 +142,7 @@ export default {
     formatDate(dateString) {
             const date = new Date(dateString);
                 // Then specify how you want your dates to be formatted
-            return new Intl.DateTimeFormat('en-EN', {dateStyle: 'short'}).format(date);
+            return new Intl.DateTimeFormat('en-GB', {dateStyle: 'short'}).format(date);
     }       
   }
 };

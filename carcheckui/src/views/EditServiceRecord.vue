@@ -46,7 +46,7 @@
               <label for="veh_total_bill_amount">Total Bill Amount</label>
               <input
                 v-model="service.veh_total_bill_amount"
-                v-validate="'required|min:3|max:40'"
+                v-validate="'required|min:2|max:40'"
                 type="text"
                 class="form-control"
                 name="veh_total_bill_amount"
@@ -72,7 +72,7 @@
               <label for="veh_amount_paid_due">Amount Due</label>
               <input
                 v-model="service.veh_amount_paid_due"
-                v-validate="'required|min:3|max:300'"
+                v-validate="'required|min:2|max:100'"
                 type="text"
                 class="form-control"
                 name="veh_amount_paid_due"
@@ -82,7 +82,7 @@
               </div>
             </div>            
             <div class="form-group">
-              <button class="btn btn-default btn-block" @click.prevent="getByIdViewServiceRecord(service.serviceid)">Cancel</button>
+              <button class="btn btn-primary btn-block" @click.prevent="getByIdViewServiceRecord(service.serviceid)">Cancel</button>
               <button class="btn btn-primary btn-block">Save Vehicle</button>
             </div>
           </div>
@@ -154,7 +154,7 @@ export default {
             data => {
               this.message = data.message;
               this.successful = true;              
-              this.$swal('Vehicle Service Record Updated Successfully');
+              this.$swal('Service Record Updated');
               this.$router.push('/vehicles');            
             },
             error => {
