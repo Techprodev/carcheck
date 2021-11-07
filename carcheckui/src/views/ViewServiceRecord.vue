@@ -1,3 +1,4 @@
+/* eslint-disable vue/multi-word-component-names */
 <template>
   <div class="container">
     <h1>Service Record </h1>
@@ -34,6 +35,7 @@ import VehicleService from '../services/vehicle.service';
 import Service from '../models/service';
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'viewservicerecord',
   data() {
     return {

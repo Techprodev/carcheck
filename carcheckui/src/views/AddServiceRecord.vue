@@ -183,6 +183,7 @@ import axios from 'axios';
 const API_URL = 'http://localhost:3000/';
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Addservicerecord',
   data() {
     return {
